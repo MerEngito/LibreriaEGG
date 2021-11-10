@@ -1,5 +1,6 @@
 package com.libreria.prestamo.entidad;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,7 @@ public class Autor {
     private String nombre;
 
     @Column(nullable = false)
-    private Boolean alta;
+    private Date alta;
 
     public Long getId() {
         return id;
@@ -35,12 +36,13 @@ public class Autor {
         this.nombre = nombre;
     }
 
-    public Boolean getAlta() {
+    public Date getAlta() {
         return alta;
     }
 
-    public void setAlta(Boolean alta) {
+    public void setAlta(Date alta) {
         this.alta = alta;
     }
+    
 
 }

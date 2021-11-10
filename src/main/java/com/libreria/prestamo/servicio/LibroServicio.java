@@ -1,19 +1,29 @@
 package com.libreria.prestamo.servicio;
 
+import com.libreria.prestamo.entidad.Foto;
 import com.libreria.prestamo.entidad.Libro;
 import com.libreria.prestamo.excepcion.Excepciones;
 import com.libreria.prestamo.repositorio.LibroRepositorio;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+
+@Service
 public class LibroServicio {
 
     @Autowired
-    LibroRepositorio libroRepositorio;
+    private LibroRepositorio libroRepositorio;
 
+    @Autowired
+    private FotoServicio fotoServicio;
+    
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public Libro guardar(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes) throws Exception {
+    public Libro guardar(MultipartFile archivo, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes) throws Exception {
 
         validar(titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes);
 
@@ -24,10 +34,20 @@ public class LibroServicio {
         libro.setEjemplares(ejemplares);
         libro.setEjemplaresPrestados(ejemplaresPrestados);
         libro.setEjemplaresRestantes(ejemplaresRestantes);
-
+        libro.setAlta(new Date());
+        
+        Foto foto = fotoServicio.guardarFoto(archivo);
+        libro.setFoto(foto);
+        
         return libroRepositorio.save(libro);
     }
-
+    
+    @Transactional (readOnly = true)
+    private List<Libro> listarLibros(){
+        return  libroRepositorio.findAll();
+    }
+    
+    
     private void validar(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes) throws Excepciones {
 
         if (titulo == null || titulo.isEmpty()) {

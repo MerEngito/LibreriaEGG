@@ -5,10 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 
 @Entity
 public class Prestamo {
@@ -24,9 +23,10 @@ public class Prestamo {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaDevolucion;
 
-    @OneToOne
+    @ManyToOne
     private Libro libro;
-    @OneToOne
+    
+    @ManyToOne
     private Cliente cliente;
 
     public Long getId() {
@@ -76,7 +76,5 @@ public class Prestamo {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-    
 
 }

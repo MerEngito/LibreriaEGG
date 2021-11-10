@@ -1,5 +1,7 @@
 package com.libreria.prestamo.entidad;
 
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,14 +15,24 @@ public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private Long isbn;
+    @Column(nullable = false)
+    private String isbn;
+
+    @Column(nullable = false)
     private String titulo;
+
+    @Column(nullable = false)
     private Integer anio;
+
+    @Column(nullable = false)
     private Integer ejemplares;
+
+    @Column(nullable = false)
     private Integer ejemplaresPrestados;
+
+    @Column(nullable = false)
     private Integer ejemplaresRestantes;
-    private Boolean alta;
+    private Date alta;
 
     @ManyToOne
     private Autor autor;
@@ -31,10 +43,8 @@ public class Libro {
     @ManyToOne
     private Cliente cliente;
 
-    public Libro() {
-    }
-    
-    
+    @OneToOne
+    private Foto foto;
 
     public Long getId() {
         return id;
@@ -43,15 +53,7 @@ public class Libro {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public long getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(long isbn) {
-        this.isbn = isbn;
-    }
-
+    
     public String getTitulo() {
         return titulo;
     }
@@ -92,11 +94,11 @@ public class Libro {
         this.ejemplaresRestantes = ejemplaresRestantes;
     }
 
-    public Boolean getAlta() {
+    public Date getAlta() {
         return alta;
     }
 
-    public void setAlta(Boolean alta) {
+    public void setAlta(Date alta) {
         this.alta = alta;
     }
 
@@ -124,6 +126,22 @@ public class Libro {
         this.cliente = cliente;
     }
 
-   
+    public Foto getFoto() {
+        return foto;
+    }
 
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    
+    
 }
