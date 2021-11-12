@@ -4,6 +4,7 @@ import com.libreria.prestamo.entidad.Libro;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller // Componente de TIPO Controlador
@@ -19,6 +20,14 @@ public class LibroControlador {
 //        return "/lista";
 //    }
 //    
+    @GetMapping("/buscarlibro")
+    public String buscarLibro(){
+        
+        return "index.html";
+    }
+     
+   
+
     
 
 }

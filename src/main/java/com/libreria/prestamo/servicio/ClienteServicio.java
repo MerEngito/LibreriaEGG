@@ -56,6 +56,7 @@ public class ClienteServicio {//implements UserDetailsService{
         validar(documento, nombre, apellido, telefono, clave, mail);
 
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
+        
         if (respuesta.isPresent()) {
             Cliente cliente = respuesta.get();
             cliente.setDocumento(documento);

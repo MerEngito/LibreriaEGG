@@ -6,6 +6,7 @@ import com.libreria.prestamo.excepcion.Excepciones;
 import com.libreria.prestamo.repositorio.LibroRepositorio;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -47,6 +48,30 @@ public class LibroServicio {
         return  libroRepositorio.findAll();
     }
     
+    @Transactional
+   private Libro buscarLibro(long id)throws Exception{
+        
+         Optional<Libro> titulo = libroRepositorio.findById(id);
+
+        if (titulo.isPresent()) {
+            Libro libros = titulo.get();
+            
+
+           return libros;
+            
+        } else {
+            throw new Excepciones("No se encontro el usuario solicitado");
+        }
+}
+    
+    public List buscaAutor(){
+        return libroRepositorio.buscaAutor();
+    }
+
+    
+   
+  
+    
     
     private void validar(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes) throws Excepciones {
 
@@ -72,5 +97,11 @@ public class LibroServicio {
         }
     }
 
+    
+    
+    
+    
+    
+    
 }
 

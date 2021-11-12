@@ -33,7 +33,18 @@ public class Libro {
     @Column(nullable = false)
     private Integer ejemplaresRestantes;
     private Date alta;
+    
+     @Column(nullable = false)
+    private Boolean stock = false;
 
+    public Boolean getStock() {
+        return stock;
+    }
+
+    public void setStock(Boolean activo) {
+        this.stock = activo;
+    }
+   
     @ManyToOne
     private Autor autor;
 
