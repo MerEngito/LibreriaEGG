@@ -15,9 +15,8 @@ public class Autor {
     private Long id;
 
     @Column(nullable = false)
-    private String nombre;
+    private String nombreAutor;
 
-    @Column(nullable = false)
     private Date alta;
 
     public Long getId() {
@@ -28,12 +27,12 @@ public class Autor {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreAutor() {
+        return nombreAutor;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreAutor(String nombreAutor) {
+        this.nombreAutor = nombreAutor;
     }
 
     public Date getAlta() {

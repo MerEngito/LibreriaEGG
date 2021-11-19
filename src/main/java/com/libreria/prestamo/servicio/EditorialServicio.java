@@ -14,11 +14,14 @@ public class EditorialServicio {
     private EditorialRepositorio editorialRepositorio;
 
     @Transactional
-    public Editorial guardar(String nombre) {
+    public Editorial guardar(String nombreEditorial) {
         Editorial editorial = new Editorial();
 
-        editorial.setNombre(nombre);
+        editorial.setNombreEditorial(nombreEditorial);
         editorial.setAlta(new Date());
-        return editorialRepositorio.save(editorial);
+        editorialRepositorio.save(editorial);
+        
+        return editorial;
+    
     }
 }

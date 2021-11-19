@@ -31,14 +31,14 @@ public class ClienteServicio {//implements UserDetailsService{
     private FotoServicio fotoServicio;
     
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public Cliente registrarCliente(MultipartFile archivo, String documento, String nombre, String apellido, String telefono, String clave, String mail) throws Exception {
+    public Cliente registrarCliente(MultipartFile archivo, String documento, String nombreCliente, String apellido, String telefono, String clave, String mail) throws Exception {
 
-        validar(documento, nombre, apellido, telefono, clave, mail);
+        validar(documento, nombreCliente, apellido, telefono, clave, mail);
 
         Cliente cliente = new Cliente();
 
         cliente.setDocumento(documento);
-        cliente.setNombre(nombre);
+        cliente.setNombreCliente(nombreCliente);
         cliente.setApellido(apellido);
         cliente.setTelefono(telefono);
         cliente.setAlta(new Date());
@@ -52,15 +52,15 @@ public class ClienteServicio {//implements UserDetailsService{
     }
 
     @Transactional
-    private void modificarCliente(MultipartFile archivo, Long id, String documento, String nombre, String apellido, String telefono, String clave, String mail) throws Exception {
-        validar(documento, nombre, apellido, telefono, clave, mail);
+    private void modificarCliente(MultipartFile archivo, Long id, String documento, String nombreCliente, String apellido, String telefono, String clave, String mail) throws Exception {
+        validar(documento, nombreCliente, apellido, telefono, clave, mail);
 
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
         
         if (respuesta.isPresent()) {
             Cliente cliente = respuesta.get();
             cliente.setDocumento(documento);
-            cliente.setNombre(nombre);
+            cliente.setNombreCliente(nombreCliente);
             cliente.setApellido(apellido);
             cliente.setTelefono(telefono);
             cliente.setClave(clave);
@@ -108,13 +108,13 @@ public class ClienteServicio {//implements UserDetailsService{
         }
     }
 
-    private void validar(String documento, String nombre, String apellido, String telefono, String clave, String mail) throws Excepciones {
+    private void validar(String documento, String nombreCliente, String apellido, String telefono, String clave, String mail) throws Excepciones {
 
         if (documento == null || documento.isEmpty()) {
 
             throw new Excepciones("El Documento no puede ser nulo");
         }
-        if (nombre == null || nombre.isEmpty()) {
+        if (nombreCliente == null || nombreCliente.isEmpty()) {
 
             throw new Excepciones("El nombre no puede ser nulo");
         }

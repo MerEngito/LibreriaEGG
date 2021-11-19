@@ -19,7 +19,7 @@ public class Cliente {
     private String documento;
     
     @Column(nullable = false)
-    private String nombre;
+    private String nombreCliente;
     
     @Column(nullable = false)
     private String apellido;
@@ -50,12 +50,12 @@ public class Cliente {
 
     
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreCliente() {
+        return nombreCliente;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
     }
 
     public String getApellido() {

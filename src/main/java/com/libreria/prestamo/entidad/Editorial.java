@@ -15,9 +15,9 @@ public class Editorial {
     private Long id;
     
     @Column(nullable = false)
-    private String nombre;
+    private String nombreEditorial;
     
-    @Column(nullable = false)
+   
     private Date alta;
 
     public Long getId() {
@@ -28,12 +28,12 @@ public class Editorial {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreEditorial() {
+        return nombreEditorial;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreEditorial(String nombreEditorial) {
+        this.nombreEditorial = nombreEditorial;
     }
 
     public Date getAlta() {
