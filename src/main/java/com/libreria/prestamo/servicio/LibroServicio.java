@@ -30,30 +30,50 @@ public class LibroServicio {
     @Autowired
     private EditorialServicio editorialServicio;
 
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public Libro guardar(MultipartFile archivo, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, String nombreAutor, String nombreEditorial) throws Exception {
+//    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+//    public Libro guardar(MultipartFile archivo, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, String nombreAutor, String nombreEditorial) throws Exception {
+//
+//        validar(titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, nombreAutor, nombreEditorial);
+//
+//        Libro libro = new Libro();
+//
+//        libro.setTitulo(titulo);
+//        libro.setAnio(anio);
+//        libro.setEjemplares(ejemplares);
+//        libro.setEjemplaresPrestados(ejemplaresPrestados);
+//        libro.setEjemplaresRestantes(ejemplaresRestantes);
+//        libro.setAlta(new Date());
+//
+//        Autor autor = autorServicio.guardar(nombreAutor);
+//        Foto foto = fotoServicio.guardarFoto(archivo);
+//        Editorial editorial = editorialServicio.guardar(nombreEditorial);
+//        libro.setAutor(autor);
+//        libro.setFoto(foto);
+//        libro.setEditorial(editorial);
+//
+//        return libroRepositorio.save(libro);
+//    }
+    
+     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+     public Libro guardar( String titulo, String nombreAutor, String nombreEditorial) throws Exception {
 
-        validar(titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, nombreAutor, nombreEditorial);
-
+         validar(titulo, nombreAutor, nombreEditorial);
+         
         Libro libro = new Libro();
 
         libro.setTitulo(titulo);
-        libro.setAnio(anio);
-        libro.setEjemplares(ejemplares);
-        libro.setEjemplaresPrestados(ejemplaresPrestados);
-        libro.setEjemplaresRestantes(ejemplaresRestantes);
         libro.setAlta(new Date());
-
         Autor autor = autorServicio.guardar(nombreAutor);
-        Foto foto = fotoServicio.guardarFoto(archivo);
+        //Foto foto = fotoServicio.guardarFoto(archivo);
         Editorial editorial = editorialServicio.guardar(nombreEditorial);
         libro.setAutor(autor);
-        libro.setFoto(foto);
+       // libro.setFoto(foto);
         libro.setEditorial(editorial);
 
         return libroRepositorio.save(libro);
-    }
-
+     }
+     
+     
     @Transactional(readOnly = true)
     private List<Libro> listarLibros() {
         return libroRepositorio.findAll();
@@ -77,28 +97,28 @@ public class LibroServicio {
 //    public List buscaAutor(){
 //        return libroRepositorio.buscaAutor();
 //    }
-    private void validar(String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, String autor, String editorial) throws Excepciones {
+    private void validar(String titulo, String autor, String editorial) throws Excepciones {
 
         if (titulo == null || titulo.isEmpty()) {
 
             throw new Excepciones("El nombre no puede ser nulo");
         }
-        if (anio == null || anio.toString().isEmpty()) {
-
-            throw new Excepciones("El nombre no puede ser nulo");
-        }
-        if (ejemplares == null || ejemplares.equals(0)) {
-
-            throw new Excepciones("El nombre no puede ser nulo");
-        }
-        if (ejemplaresPrestados == null || ejemplaresPrestados.equals(0)) {
-
-            throw new Excepciones("El nombre no puede ser nulo");
-        }
-        if (ejemplaresRestantes == null || ejemplaresRestantes.equals(0)) {
-
-            throw new Excepciones("El nombre no puede ser nulo");
-        }
+//        if (anio == null || anio.toString().isEmpty()) {
+//
+//            throw new Excepciones("El nombre no puede ser nulo");
+//        }
+//        if (ejemplares == null || ejemplares.equals(0)) {
+//
+//            throw new Excepciones("El nombre no puede ser nulo");
+//        }
+//        if (ejemplaresPrestados == null || ejemplaresPrestados.equals(0)) {
+//
+//            throw new Excepciones("El nombre no puede ser nulo");
+//        }
+//        if (ejemplaresRestantes == null || ejemplaresRestantes.equals(0)) {
+//
+//            throw new Excepciones("El nombre no puede ser nulo");
+//        }
         if (autor == null || autor.isEmpty()) {
 
             throw new Excepciones("El nombre del autor no puede ser nulo");

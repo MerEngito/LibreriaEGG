@@ -10,6 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LibroRepositorio extends JpaRepository<Libro, Long> {
+}
+
+
 
 //    @Query("SELECT c FROM Libro c WHERE c.titulo.id =:id")
 //    public List<Libro> buscarLibro(@Param("id") Long id);
@@ -21,5 +24,3 @@ public interface LibroRepositorio extends JpaRepository<Libro, Long> {
 //    public List<Libro> buscaAutor();
 //
 //    public Optional<Libro> buscarLibro(Optional<Libro> titulo);
-
-}

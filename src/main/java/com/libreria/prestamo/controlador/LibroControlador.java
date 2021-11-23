@@ -1,8 +1,12 @@
 package com.libreria.prestamo.controlador;
 
+
 import com.libreria.prestamo.entidad.Libro;
+import com.libreria.prestamo.repositorio.LibroRepositorio;
 import com.libreria.prestamo.servicio.LibroServicio;
 import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,35 +21,150 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/libro") // (ANOTACION) Configura cual es la url que va eschuchar este controlador va a escuchar a partir de la barra
 public class LibroControlador {
 
+    
+    
     @Autowired
     private LibroServicio libroServicio;
+    
+    @Autowired
+    private LibroRepositorio libroRepositorio;
+    
+    @GetMapping("/")
+    public String indexAutor(ModelMap modelo) {  //sirve para mostrar modelo y Traer de la base de datos autores saca informasion de java y la injecta en el html
 
-    @GetMapping("/registro")
-    public String formulario() {
+          List<Libro> libros = libroRepositorio.findAll();
+       
+        //modelo.put("libros", libros);
 
-        return "form-libro";
+        return "libro";
     }
     
-    @PostMapping("/registro")
-    public String guardar(ModelMap modelo,@RequestParam MultipartFile archivo, @RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam Integer ejemplaresRestantes, @RequestParam String nombreAutor, @RequestParam String nombreEditorial){
-        
+     @GetMapping("/registro")
+     public String formulario(ModelMap modelo) {
+
+        List<Libro> libros = libroRepositorio.findAll();
+
+        modelo.put("libros", libros);
+
+        return "libro";
+    }
+     
+        @PostMapping("/registro")
+    public String guardar(ModelMap modelo, @RequestParam String titulo, @RequestParam String nombreAutor,@RequestParam String nombreEditorial) {
+
         try {
-            libroServicio.guardar(archivo, titulo, anio,ejemplares , ejemplaresPrestados, ejemplaresPrestados, nombreAutor, nombreEditorial);
-        
-            modelo.put("exito", "Registro Exitoso¡" );
-            
-            return "form-libro";
-       
-        } catch (Exception e){
-            
-            modelo.put("error", "Error. Falta algun dato¡" );
-           
-            return "form-libro";
+            libroServicio.guardar(titulo, nombreAutor, nombreEditorial);
+
+            modelo.put("exito", "Registro Exitoso¡");
+
+            return "editorial";
+
+        } catch (Exception e) {
+
+            modelo.put("error", "Error. Falta algun dato¡");
+
+            return "editorial";
         }
     }
+
+//    @PostMapping("/registro")
+//    public String guardar(ModelMap modelo, @RequestParam String nombreAutor) {
+//
+//        try {
+//            libroServicio.guardar();
+//
+//            modelo.put("exito", "Registro Exitoso¡");
+//
+//            return "libro";
+//
+//        } catch (Exception e) {
+//
+//            modelo.put("error", "Error. Falta algun dato¡");
+//
+//            return "autor";
+//        }
+//    }
+//    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+    
+//    @GetMapping("/")
+//    public String indexAutor(ModelMap modelo) {  //sirve para mostrar modelo y Traer de la base de datos autores saca informasion de java y la injecta en el html
+//
+//          List<Libro> libros = LibroRepositorio.
+//       
+//        //modelo.put("libros", libros);
+//
+//        return "libro";
+//    }
+    
+    
+//
+//    @GetMapping("/registro")
+//    public String formulario() {
+//
+//        return "form-libro";
+//    }
+//    
+//    @PostMapping("/registro")
+//    public String guardar(ModelMap modelo,@RequestParam MultipartFile archivo, @RequestParam String titulo, @RequestParam Integer anio, @RequestParam Integer ejemplares, @RequestParam Integer ejemplaresPrestados, @RequestParam Integer ejemplaresRestantes, @RequestParam String nombreAutor, @RequestParam String nombreEditorial){
+//        
+//        try {
+//            libroServicio.guardar(archivo, titulo, anio,ejemplares , ejemplaresPrestados, ejemplaresPrestados, nombreAutor, nombreEditorial);
+//        
+//            modelo.put("exito", "Registro Exitoso¡" );
+//            
+//            return "form-libro";
+//       
+//        } catch (Exception e){
+//            
+//            modelo.put("error", "Error. Falta algun dato¡" );
+//           
+//            return "form-libro";
+//        }
+//    }
     
      
-}
+
 
 //    public String listarLibros(ModelMap model){
 //        
