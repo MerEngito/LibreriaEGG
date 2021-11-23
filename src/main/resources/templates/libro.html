@@ -48,8 +48,8 @@
 					<th scope="col">Alta</th>
 				</tr>
 			</thead>
-			<tbody th:each="libro : ${libros}"> 
-				<tr>
+			<tbody > 
+				<tr th:each="libro : ${libros}">
 
 
 					<th scope="row" th:text="${libro.id}"></th>

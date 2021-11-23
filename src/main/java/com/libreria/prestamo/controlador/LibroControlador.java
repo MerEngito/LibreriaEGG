@@ -34,7 +34,7 @@ public class LibroControlador {
 
           List<Libro> libros = libroRepositorio.findAll();
        
-        //modelo.put("libros", libros);
+        modelo.put("libros", libros);
 
         return "libro";
     }
@@ -48,22 +48,22 @@ public class LibroControlador {
 
         return "libro";
     }
-     
+        
         @PostMapping("/registro")
-    public String guardar(ModelMap modelo, @RequestParam String titulo, @RequestParam String nombreAutor,@RequestParam String nombreEditorial) {
+    public String guardar(ModelMap modelo, @RequestParam String titulo,@RequestParam Integer anio) {
 
         try {
-            libroServicio.guardar(titulo, nombreAutor, nombreEditorial);
+            libroServicio.guardar2(titulo, anio);
 
             modelo.put("exito", "Registro Exitoso¡");
 
-            return "editorial";
+            return "libro";
 
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
             modelo.put("error", "Error. Falta algun dato¡");
 
-            return "editorial";
+            return "libro";
         }
     }
 

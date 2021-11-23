@@ -26,7 +26,7 @@ public class LibroServicio {
 
     @Autowired
     private AutorServicio autorServicio;
-    
+
     @Autowired
     private EditorialServicio editorialServicio;
 
@@ -53,12 +53,11 @@ public class LibroServicio {
 //
 //        return libroRepositorio.save(libro);
 //    }
-    
-     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-     public Libro guardar( String titulo, String nombreAutor, String nombreEditorial) throws Exception {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public Libro guardar(String titulo, String nombreAutor, String nombreEditorial) throws Exception {
 
-         validar(titulo, nombreAutor, nombreEditorial);
-         
+        validar(titulo, nombreAutor, nombreEditorial);
+
         Libro libro = new Libro();
 
         libro.setTitulo(titulo);
@@ -67,13 +66,32 @@ public class LibroServicio {
         //Foto foto = fotoServicio.guardarFoto(archivo);
         Editorial editorial = editorialServicio.guardar(nombreEditorial);
         libro.setAutor(autor);
-       // libro.setFoto(foto);
+        // libro.setFoto(foto);
         libro.setEditorial(editorial);
 
         return libroRepositorio.save(libro);
-     }
-     
-     
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public Libro guardar2(String titulo, Integer anio) throws Exception {
+
+        Libro libro = new Libro();
+
+        libro.setTitulo(titulo);
+        libro.setAlta(new Date());
+        libro.setAnio(anio);
+
+        Integer ejemplares = 3;
+        Integer ejemplaresPrestados = 2;
+        Integer ejemplaresRestantes = 1;
+        String isbn = "12";
+        libro.setEjemplares(ejemplares);
+        libro.setEjemplaresPrestados(ejemplaresPrestados);
+        libro.setEjemplaresRestantes(ejemplaresRestantes);
+        libro.setIsbn(isbn);
+        return libroRepositorio.save(libro);
+    }
+
     @Transactional(readOnly = true)
     private List<Libro> listarLibros() {
         return libroRepositorio.findAll();
@@ -119,14 +137,13 @@ public class LibroServicio {
 //
 //            throw new Excepciones("El nombre no puede ser nulo");
 //        }
-        if (autor == null || autor.isEmpty()) {
-
-            throw new Excepciones("El nombre del autor no puede ser nulo");
-        }
-        if (editorial == null || editorial.isEmpty()) {
-
-            throw new Excepciones("El nombre de la editorial no puede ser nulo");
-        }
+//        if (autor == null || autor.isEmpty()) {
+//
+//            throw new Excepciones("El nombre del autor no puede ser nulo");
+//        }
+//        if (editorial == null || editorial.isEmpty()) {
+//
+//            throw new Excepciones("El nombre de la editorial no puede ser nulo");
+//        }
     }
 }
-
