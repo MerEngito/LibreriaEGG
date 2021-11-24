@@ -35,13 +35,13 @@ public class FotoServicio {
 
     
     @Transactional
-    public Foto actualizarFoto(Long idFoto, MultipartFile archivo) throws Excepciones {
+    public Foto actualizarFoto(String idFoto, MultipartFile archivo) throws Excepciones {
 
         if (archivo != null) {
             try {
                 Foto foto = new Foto();
 
-                if (idFoto != null || idFoto.toString().isEmpty()) {
+                if (idFoto != null || idFoto.isEmpty()) {
 
                     Optional<Foto> respuesta = fotoRepositorio.findById(idFoto);
 

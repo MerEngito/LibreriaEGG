@@ -72,7 +72,7 @@ public class ClienteServicio {//implements UserDetailsService{
                 idFoto = cliente.getFoto().getId().toString();
             }
 
-            Foto foto = fotoServicio.actualizarFoto(id, archivo);
+            Foto foto = fotoServicio.actualizarFoto(idFoto, archivo);
             cliente.setFoto(foto);
 
             clienteRepositorio.save(cliente);

@@ -4,16 +4,17 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Foto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
 
     private String nombreFoto;
     
@@ -23,15 +24,7 @@ public class Foto {
     @Lob
     @Basic(fetch = FetchType.LAZY)
     private byte[] contenido;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    
     public String getNombreFoto() {
         return nombreFoto;
     }
@@ -54,6 +47,14 @@ public class Foto {
 
     public void setContenido(byte[] contenido) {
         this.contenido = contenido;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }
