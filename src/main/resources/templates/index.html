@@ -30,6 +30,8 @@
         }
       }
     </style>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+   integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
     
   </head>
@@ -41,7 +43,7 @@
       <div class="row">
         <div class="col-sm-8 col-md-7 py-4">
           <h4 class="text-white">About</h4>
-          <p class="text-muted">Ejemplo basico de Spring y Thymeleaf</p>
+          <p class="text-muted">Libreria</p>
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
           <h4 class="text-white">Contact</h4>
@@ -69,11 +71,34 @@
 
 <main>
 
+  <body d- flex justify-content-center>
+    <div align="center">
+    <h2>Registrar un usuario</h2>
+    <form action="#" method="POST"></form>
+    <label   for="Email"><strong>Email</strong></label>
+    <br>
+    <input id="Email" type="text" name="Email">
+    <br>
+    <label  for="Contraseña"><strong>Contraseña</strong></label>
+    <br>
+    <input  id="Contraseña" type="password" name="Contraseña">
+    <br>
+    <div align="center" class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Recordar</label>
+      <br>
+    <button type="submit" class="btn btn-primary">Ingresar</button>
+    </div>
+
+      
+        
+
+        
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Perros Index</h1>
-        <p class="lead text-muted">Ejemplo basico de Spring y Thymeleaf</p>
+        <h1 class="fw-light">Libreria EGG</h1>
+        <p class="lead text-muted">La Libreria de Noelia, Maxi y Javier</p>
         <p>
           <a th:href="@{/autor/}" class="btn btn-primary my-2">Autor</a>
           <a th:href="@{/editorial/}" class="btn btn-secondary my-2">Editorial</a>
