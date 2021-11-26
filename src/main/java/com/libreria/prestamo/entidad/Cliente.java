@@ -1,19 +1,26 @@
 package com.libreria.prestamo.entidad;
 
+import com.libreria.prestamo.entidad.Foto;
+import com.libreria.prestamo.enumeracion.Rol;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     
     @Column(nullable = false)
     private String documento;
@@ -33,23 +40,18 @@ public class Cliente {
     @Column(nullable = false)
     private String mail;
     
+    @Enumerated(EnumType.STRING)
+    private Rol rol;
+    
+    @Temporal(TemporalType.TIMESTAMP)
     private Date alta;
     
+    @Temporal(TemporalType.TIMESTAMP)
     private Date baja;
 
     @OneToOne
     private Foto foto;
     
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    
-
     public String getNombreCliente() {
         return nombreCliente;
     }
@@ -121,6 +123,24 @@ public class Cliente {
     public void setDocumento(String documento) {
         this.documento = documento;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    
 
     
 
