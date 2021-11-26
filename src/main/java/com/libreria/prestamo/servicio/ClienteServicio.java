@@ -49,9 +49,14 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         cliente.setMail(mail);
         cliente.setClave(clave);
 
+        cliente.setRol(Rol.USUARIO);
+        
+        String encriptada = new BCryptPasswordEncoder().encode(clave);
+        cliente.setClave(encriptada);
+
         Foto foto = fotoServicio.guardarFoto(archivo);
         cliente.setFoto(foto);
-
+        
         return clienteRepositorio.save(cliente);
     }
 
@@ -85,9 +90,6 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         }
     }
 
-  
-   
-
     private void validar1(String documento, String nombreCliente, String apellido, String telefono, String clave, String mail) throws Excepciones {
 
         if (documento == null || documento.isEmpty()) {
@@ -116,8 +118,8 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         }
 
     }
-    
-     public void validar(String nombre, String apellido, String mail, String clave, String clave2) throws Excepciones {
+
+    public void validar(String nombre, String apellido, String mail, String clave, String clave2) throws Excepciones {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new Excepciones("El nombre del usuario no puede ser nulo");
@@ -137,9 +139,9 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         if (!clave.equals(clave2)) {
             throw new Excepciones("Las claves deben ser iguales");
         }
- }
-    
-     @Transactional
+    }
+
+    @Transactional
     public void registrar(MultipartFile archivo, String nombre, String apellido, String mail, String clave, String clave2) throws Excepciones {
 
         validar(nombre, apellido, mail, clave, clave2);
@@ -152,7 +154,7 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
 
         String encriptada = new BCryptPasswordEncoder().encode(clave);
         cliente.setClave(encriptada);
-        
+
         cliente.setAlta(new Date());
 
         Foto foto = fotoServicio.guardarFoto(archivo);
@@ -161,10 +163,8 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         clienteRepositorio.save(cliente);
 
     }
-    
-    
-    
-     @Transactional
+
+    @Transactional
     public void modificar(MultipartFile archivo, String id, String nombre, String apellido, String mail, String clave, String clave2) throws Excepciones {
 
         validar(nombre, apellido, mail, clave, clave2);
@@ -176,7 +176,7 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
             cliente.setNombreCliente(nombre);
             cliente.setApellido(apellido);
             cliente.setMail(mail);
-           
+
             String encriptada = new BCryptPasswordEncoder().encode(clave);
             cliente.setClave(encriptada);
 
@@ -195,8 +195,8 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         }
 
     }
-    
-      @Transactional
+
+    @Transactional
     public void deshabilitar(String id) throws Excepciones {
 
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
@@ -211,9 +211,8 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         }
 
     }
-    
-    
-       @Transactional
+
+    @Transactional
     public void habilitar(String id) throws Excepciones {
 
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
@@ -228,28 +227,27 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         }
 
     }
-    
-    
-       @Transactional
-    public void cambiarRol(String id) throws Excepciones{
-    
-    	Optional<Cliente> respuesta = clienteRepositorio.findById(id);
-    	
-    	if(respuesta.isPresent()) {
-    		
-    		Cliente cliente = respuesta.get();
-    		
-    		if(cliente.getRol().equals(Rol.USUARIO)) {
-    			
-    		cliente.setRol(Rol.ADMIN);
-    		
-    		}else if(cliente.getRol().equals(Rol.ADMIN)) {
-    			cliente.setRol(Rol.USUARIO);
-    		}
-    	}
+
+    @Transactional
+    public void cambiarRol(String id) throws Excepciones {
+
+        Optional<Cliente> respuesta = clienteRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+
+            Cliente cliente = respuesta.get();
+
+            if (cliente.getRol().equals(Rol.USUARIO)) {
+
+                cliente.setRol(Rol.ADMIN);
+
+            } else if (cliente.getRol().equals(Rol.ADMIN)) {
+                cliente.setRol(Rol.USUARIO);
+            }
+        }
     }
-    
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     public Cliente buscarPorId(String id) throws Excepciones {
 
         Optional<Cliente> respuesta = clienteRepositorio.findById(id);
@@ -263,12 +261,12 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         }
 
     }
-    
-   @Transactional(readOnly=true)
-    public List<Cliente> todosLosClientess(){
- 
+
+    @Transactional(readOnly = true)
+    public List<Cliente> todosLosClientess() {
+
         return clienteRepositorio.findAll();
-        
+
     }
 
     @Transactional(readOnly = true)
@@ -283,27 +281,27 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         return null;
     }
 
-   @Override
+    @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-    	
+
         Cliente cliente = clienteRepositorio.buscarPorMail(mail);
-        
+
         if (cliente != null) {
-        	
+
             List<GrantedAuthority> permisos = new ArrayList<>();
-                        
+
             //Creo una lista de permisos! 
-            GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_"+ cliente.getRol());
+            GrantedAuthority p1 = new SimpleGrantedAuthority("ROLE_" + cliente.getRol());
             permisos.add(p1);
-         
+
             //Esto me permite guardar el OBJETO USUARIO LOG, para luego ser utilizado
             ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attr.getRequest().getSession(true);
-            
+
             session.setAttribute("usuariosession", cliente); // llave + valor
 
             User user = new User(cliente.getMail(), cliente.getClave(), permisos);
-           
+
             return user;
 
         } else {
