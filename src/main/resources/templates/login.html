@@ -18,19 +18,25 @@
         </div>
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
-            <h2 class="display-4">Ingresá a Libreria</h2>
-            <form action="/logincheck" method="POST">
-               <p th:if="${error != null}" th:text="${error}" style="color:red"></p>
-               <p th:if="${logout != null}" th:text="${logout}" style="color:greenyellow"></p>
-
-               <label>E-Mail</label>
-              <input type="email" class="form-control" name="username"/>
-              
-              <label>Clave</label>
-              <input type="password" class="form-control" name="password"/>
-              
-              <br/><button type="submit" class="btn btn-primary">Ingresar</button>
-            </form>
+            <h2 align="center" class="display-4">Ingresá a Libreria</h2>
+            <div align="center">
+              <h2>Registrar un usuario</h2>
+              <form action="#" method="POST"></form>
+              <label   for="Email"><strong>Email</strong></label>
+              <br>
+              <input id="Email" type="text" name="Email">
+              <br>
+              <label  for="Contraseña"><strong>Contraseña</strong></label>
+              <br>
+              <input  id="Contraseña" type="password" name="Contraseña">
+              <br>
+              <div align="center" class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Recordar</label>
+                <br>
+              <button type="submit" class="btn btn-primary">Ingresar</button>
+              </div>
+          
           </div>
       </div>
     </div>
@@ -39,8 +45,8 @@
 
   <!-- Footer -->
   <footer class="py-5 bg-black">
-    <div class="container">
-      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2019</p>
+    <div align="center" class="container">
+      <p class="m-0 text-center text-white small">Copyright &copy; Your Website 2021</p>
     </div>
     <!-- /.container -->
   </footer>

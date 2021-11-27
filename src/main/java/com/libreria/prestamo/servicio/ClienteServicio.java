@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ClienteServicio implements UserDetailsService {//implements UserDetailsService{
 
+
     @Autowired
     private ClienteRepositorio clienteRepositorio;
 
@@ -50,13 +51,13 @@ public class ClienteServicio implements UserDetailsService {//implements UserDet
         cliente.setClave(clave);
 
         cliente.setRol(Rol.USUARIO);
-        
+
         String encriptada = new BCryptPasswordEncoder().encode(clave);
         cliente.setClave(encriptada);
 
         Foto foto = fotoServicio.guardarFoto(archivo);
         cliente.setFoto(foto);
-        
+
         return clienteRepositorio.save(cliente);
     }
 
